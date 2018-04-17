@@ -3035,8 +3035,13 @@ function check_item_source($uid, $item) {
 	$text = prepare_text($item['body'],$item['mimetype']);
 	$text = html2plain($text);
 
-	$tags = ((count($item['term'])) ? $item['term'] : false);
-
+	if (isset($item['term']) && is_array($item['term']) && (count($item['term'])>0))
+	{
+		$tags = $item['term'];
+	} else {
+		$tags = false;
+	}
+	
 	$words = explode("\n",$r[0]['src_patt']);
 	if($words) {
 		foreach($words as $word) {
@@ -3109,7 +3114,7 @@ function post_is_importable($item,$abook) {
 				return false;
 		}
 	}
-
+	
 	$include = (($abook['abook_incl']) ? explode("\n",$abook['abook_incl']) : null);
 
 	if($include) {
