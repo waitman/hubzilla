@@ -1160,9 +1160,13 @@ function sync_files($channel, $files) {
 
 						// process/sync a remote rename/move operation
 
-						if($orig_attach['content'] !== $newfname) {
-							rename($orig_attach['content'],$newfname);
-						}
+						if (isset($orig_attach['content'])
+                                                        && ($orig_attach['content']!='')
+                                                        && ($orig_attach['content'] !== $newfname))
+                                                {
+                                                        rename($orig_attach['content'],$newfname);
+                                                } // why is orig_attach['content'] blank
+                                                  // and what happens if it does not get renamed because it is blank?
 
 						if(! dbesc_array($att))
 							continue;
