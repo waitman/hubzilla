@@ -1,3 +1,4 @@
-#!/usr/bin/env bash -f
+#!/usr/bin/env bash
+set -f
 
 composer install --optimize-autoloader --no-dev
